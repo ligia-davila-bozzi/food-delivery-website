@@ -4,16 +4,21 @@ import { useContext } from 'react';
 import CartContext from '../contexts/CartContext';
 
 export default function Footer() {
-    const { meal, drink, dessert } = useContext(CartContext);
+    const { meals, drinks, desserts } = useContext(CartContext);
     
     function orderProduct() {
-        alert(`Você pediu: ${meal}, ${drink} e ${dessert}`);
+        // generates order
+        let selectedItems = [];
+        meals.forEach(meal => {if(meal.amount > 0) selectedItems.push(meal)})
+        drinks.forEach(drink => {if(drink.amount > 0) selectedItems.push(drink)})
+        desserts.forEach(dessert => {if(dessert.amount > 0) selectedItems.push(dessert)})
+        console.log(selectedItems);
     }
 
     return(
         <FooterBox>
-            <Button>
-                <h1 onClick={() => orderProduct()}>Selecione os 3 itens para fechar o pedido</h1>
+            <Button disabled={true} onClick={() => orderProduct()}>
+                <h1>Selecione os 3 itens para fechar o pedido</h1>
             </Button>
         </FooterBox>
     )
