@@ -5,46 +5,54 @@ import CartContext from '../contexts/CartContext';
 
 export default function Footer() {
     const { meals, drinks, desserts } = useContext(CartContext);
-    const [mealSelected, setMealSelected] = useState(false);
-    const [drinkSelected, setDrinkSelected] = useState(false);
-    const [dessertSelected, setDessertSelected] = useState(false);
-    const [finalOrder, setFinalOrder] = useState([]);
+    const [finalMeals, setFinalMeals] = useState("");
+    const [finalDrinks, setFinalDrinks] = useState("");
+    const [finalDesserts, setFinalDesserts] = useState("");
+    const [finalPrice, setFinalPrice] = useState(0);
 
     useEffect(() => {
-        let order = [];
-        setMealSelected(false);
-        setDrinkSelected(false);
-        setDessertSelected(false);
+        let selectedMeals = "";
+        let selectedDrinks = "";
+        let selectedDesserts = "";
+        let subtotal = 0;
+
         meals.forEach(meal => { if(meal.amount > 0) {
-            setMealSelected(true);
-            order.push(meal);
+            selectedMeals += ` ${meal.name} (${meal.amount}x)`;
+            subtotal += meal.price;
         }})
         drinks.forEach(drink => {if(drink.amount > 0) {
-            setDrinkSelected(true);
-            order.push(drink);
+            selectedDrinks += ` ${drink.name} (${drink.amount}x) `;
+            subtotal += drink.price;
         }})
         desserts.forEach(dessert => {if(dessert.amount > 0) {
-            setDessertSelected(true);
-            order.push(dessert);
+            selectedDesserts += ` ${dessert.name} (${dessert.amount}x) `;
+            subtotal += dessert.price;
         }})
-        setFinalOrder(order);
+        
+        setFinalMeals(selectedMeals);
+        setFinalDrinks(selectedDrinks);
+        setFinalDesserts(selectedDesserts);
+        setFinalPrice(subtotal);
     }, [meals, drinks, desserts]);
-
-    console.log(finalOrder);
     
     function orderProduct() {
-        const names = finalOrder.map(m => {
-            return m.name;
-        })
-        alert("Seu pedido: " + names);
+        const orderText = `Olá, gostaria de fazer o pedido:\n- Prato(s):${finalMeals}\n- Bebida(s):${finalDrinks}\n- Sobremesa(s):${finalDesserts}\nTotal: R$ ${finalPrice.toFixed(2)}`;
+        console.log(`${encodeURIComponent(orderText)}`);
+        const orderURL = `https://wa.me/5522997680066?=text=${encodeURIComponent(orderText)}`
+        openInNewTab(orderURL);
+    }
+
+    function openInNewTab(url) {
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+        if(newWindow) {newWindow.opener = null}
     }
 
     return(
         <FooterBox>
-            <Button disabled={!mealSelected || !drinkSelected || !dessertSelected} onClick={() => orderProduct()}>
-                {mealSelected && drinkSelected && dessertSelected
-                ? <h1>Realizar pedido</h1>
-                : <h1>Selecione os 3 itens para fechar o pedido</h1>}
+            <Button disabled={finalMeals === "" || finalDrinks === "" || finalDesserts === ""} onClick={() => orderProduct()}>
+                {finalMeals === "" || finalDrinks === "" || finalDesserts === ""
+                ? <h1>Selecione os 3 itens para fechar o pedido</h1>
+                : <h1>Realizar pedido</h1>}
             </Button>
         </FooterBox>
     )

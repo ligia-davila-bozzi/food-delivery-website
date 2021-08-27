@@ -21,19 +21,19 @@ import saladaFrut from "../imgs/salada-de-frutas.jpg";
 
 export default function App() {
     const [meals, setMeals] = useState([
-        { name: "Prato Executivo", info: "Deliciosa refeição balanceada", img: pratoExec , price: "R$18,99", amount: 0 },
-        { name: "Feijoada Caseira", info: "Clássica feijoada brasileira", img: feijoada , price: "R$21,99", amount: 0 },
-        { name: "Risoto Vegetariano", info: "Saboroso risoto de alho-poró", img: risotoVeg , price: "R$20,99", amount: 0 }
+        { name: "Prato Executivo", info: "Deliciosa refeição balanceada", img: pratoExec , price: 18.99, amount: 0, category: "meal" },
+        { name: "Feijoada Caseira", info: "Clássica feijoada brasileira", img: feijoada , price: 21.99, amount: 0, category: "meal" },
+        { name: "Risoto Vegetariano", info: "Saboroso risoto de alho-poró", img: risotoVeg , price: 20.99, amount: 0, category: "meal" }
     ]);
     const [drinks, setDrinks] = useState([
-        { name: "Água Mineral", info: "Garrafa de água mineral sem gás", img: aguaMin , price: "R$2,50", amount: 0 },
-        { name: "Coca-Cola", info: "Lata de coca-cola bem geladinha", img: cocaCola , price: "R$4,50", amount: 0 },
-        { name: "Suco Natural", info: "Copo grande do suco natural do dia", img: sucoNat , price: "R$5,50", amount: 0 }
+        { name: "Água Mineral", info: "Garrafa de água mineral sem gás", img: aguaMin , price: 2.50, amount: 0, category: "drink" },
+        { name: "Coca-Cola", info: "Lata de coca-cola bem geladinha", img: cocaCola , price: 4.50, amount: 0, category: "drink" },
+        { name: "Suco Natural", info: "Copo grande do suco natural do dia", img: sucoNat , price: 5.50, amount: 0, category: "drink" }
     ]);
     const [desserts, setDesserts] = useState([
-        { name: "Pudim de Leite", info: "Pudim de leite suave e cremoso", img: pudim , price: "R$5,99", amount: 0 },
-        { name: "Petit Gâteau", info: "Petit gateau com sorvete de creme", img: petitGateau , price: "R$7,99", amount: 0 },
-        { name: "Salada de Frutas", info: "Revigorante salada de frutas frescas", img: saladaFrut , price: "R$4,99", amount: 0 }
+        { name: "Pudim de Leite", info: "Pudim de leite suave e cremoso", img: pudim , price: 5.99, amount: 0, category: "dessert" },
+        { name: "Petit Gâteau", info: "Petit gateau com sorvete de creme", img: petitGateau , price: 7.99, amount: 0, category: "dessert" },
+        { name: "Salada de Frutas", info: "Revigorante salada de frutas frescas", img: saladaFrut , price: 4.99, amount: 0, category: "dessert" }
     ]);
 
     return (

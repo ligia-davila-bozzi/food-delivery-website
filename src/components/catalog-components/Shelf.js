@@ -32,7 +32,7 @@ export default function Shelf(props) {
                         <img alt="" src={i.img}></img>
                         <Name>{i.name}</Name>
                         <Info>{i.info}</Info>
-                        <Price>{i.price}</Price>
+                        <Price>R${i.price.toFixed(2)}</Price>
                         {i.amount > 0 &&
                             <Counter>
                                 <button onClick={() => removeOne(index)}>-</button>
