@@ -38,7 +38,7 @@ export default function Footer() {
     function orderProduct() {
         const orderText = `Olá, gostaria de fazer o pedido:\n- Prato(s):${finalMeals}\n- Bebida(s):${finalDrinks}\n- Sobremesa(s):${finalDesserts}\nTotal: R$ ${finalPrice.toFixed(2)}`;
         console.log(`${encodeURIComponent(orderText)}`);
-        const orderURL = `https://wa.me/5522997680066?=text=${encodeURIComponent(orderText)}`
+        const orderURL = `https://wa.me/5522997680066?text=${encodeURIComponent(orderText)}`
         openInNewTab(orderURL);
     }
 

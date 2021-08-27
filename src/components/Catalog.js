@@ -21,7 +21,7 @@ export default function Catalog() {
 const CatalogBox = styled.div`
     margin-top: 92px;
     width: 100vw;
-    height: calc(100vh - 184px);
+    height: calc(100% - 184px);
     background-color: #E5E5E5;
     overflow: scroll;
     scrollbar-width: none;
