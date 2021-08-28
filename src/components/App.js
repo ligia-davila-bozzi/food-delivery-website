@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 import { useState }  from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Header from './Header.js';
 import Catalog from './Catalog.js';
 import Footer from './Footer.js';
 import CartContext from '../contexts/CartContext';
+import OrderReview from './OrderReview';
 
 //meals
 import pratoExec from "../imgs/prato-executivo.jpg";
@@ -38,11 +40,20 @@ export default function App() {
 
     return (
         <CartContext.Provider value={{ meals, setMeals, drinks, setDrinks, desserts, setDesserts }}>
-            <Body>
-                <Header/>
-                <Catalog/>
-                <Footer/>
-            </Body>
+            <BrowserRouter>
+                <Body>
+                    <Header/>
+                    <Switch>
+                        <Route path="/" exact>
+                            <Catalog/>
+                            <Footer/>
+                        </Route>
+                        <Route path="/review-order" exact>
+                            <OrderReview/>
+                        </Route>
+                    </Switch>
+                </Body>
+            </BrowserRouter>
         </CartContext.Provider>
     )
 }

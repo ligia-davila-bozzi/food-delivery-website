@@ -5,6 +5,7 @@
   "dependencies": {
     "react": "^18.0.0-alpha-edfe50510-20210823",
     "react-dom": "^18.0.0-alpha-edfe50510-20210823",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "styled-components": "^5.3.1"
   },
