@@ -41,6 +41,7 @@ export default function Footer() {
         const orderText = `Olá, gostaria de fazer o pedido:\n- Prato(s):${finalMeals}\n- Bebida(s):${finalDrinks}\n- Sobremesa(s):${finalDesserts}\nTotal: R$ ${finalPrice.toFixed(2)}`;
         const encodedURL = `https://wa.me/5522999790099?text=${encodeURIComponent(orderText)}`;
         setOrderURL(encodedURL);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [finalPrice]);
     
     function orderProduct() {history.push('/review-order')}
