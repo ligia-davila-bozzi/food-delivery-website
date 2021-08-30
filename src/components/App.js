@@ -37,9 +37,10 @@ export default function App() {
         { name: "Petit Gâteau", info: "Petit gateau com sorvete de creme", img: petitGateau , price: 7.99, amount: 0, category: "dessert" },
         { name: "Salada de Frutas", info: "Revigorante salada de frutas frescas", img: saladaFrut , price: 4.99, amount: 0, category: "dessert" }
     ]);
+    const [orderURL, setOrderURL] = useState("");
 
     return (
-        <CartContext.Provider value={{ meals, setMeals, drinks, setDrinks, desserts, setDesserts }}>
+        <CartContext.Provider value={{ meals, setMeals, drinks, setDrinks, desserts, setDesserts, orderURL, setOrderURL }}>
             <BrowserRouter>
                 <Body>
                     <Header/>

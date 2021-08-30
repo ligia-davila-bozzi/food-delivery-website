@@ -3,16 +3,31 @@ import { useContext } from 'react';
 
 import CartContext from '../contexts/CartContext'
 
-// FALTA RECEBER O TOTAL, CRIAR O LINK PELO FOOTER E IMPLEMENTAR BOTAO DE FINALIZAÇÃO
+// IMPLEMENTAR BOTAO DE CANCELAR
 
-export default function OrderReview(props) {
-    const { meals, drinks, desserts } = useContext(CartContext);
+export default function OrderReview() {
+    const { meals, drinks, desserts, orderURL } = useContext(CartContext);
     let orderedMeals = [];
     let orderedDrinks = [];
     let orderedDesserts = [];
-    meals.forEach(meal => {if (meal.amount > 0) orderedMeals.push(meal)});
-    drinks.forEach(drink => {if (drink.amount > 0) orderedDrinks.push(drink)});
-    desserts.forEach(dessert => {if (dessert.amount > 0) orderedDesserts.push(dessert)});
+    let total = 0;
+    meals.forEach(meal => {if (meal.amount > 0) {
+        orderedMeals.push(meal);
+        total += (meal.price * meal.amount);
+    }});
+    drinks.forEach(drink => {if (drink.amount > 0) {
+        orderedDrinks.push(drink);
+        total += (drink.price * drink.amount);
+    }});
+    desserts.forEach(dessert => {if (dessert.amount > 0) {
+        orderedDesserts.push(dessert);
+        total += (dessert.price * dessert.amount);
+    }});
+    function openInNewTab(url) {
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+        if(newWindow) {newWindow.opener = null}
+    }
+    function finishOrder() {openInNewTab(orderURL)}
     return(
         <OrderReviewBox>
             <Title>Revise seu pedido</Title>
@@ -20,25 +35,27 @@ export default function OrderReview(props) {
                 {orderedMeals.map((meal, index) => (
                     <ItemsInfo key={index}>
                         <h1>{meal.name} (x{meal.amount})</h1>
-                        <h1>R${meal.price * meal.amount}</h1>
+                        <h1>R${(meal.price * meal.amount).toFixed(2)}</h1>
                     </ItemsInfo>
                 ))}
                 {orderedDrinks.map((drink, index) => (
                     <ItemsInfo key={index}>
                         <h1>{drink.name} (x{drink.amount})</h1>
-                        <h1>R${drink.price * drink.amount}</h1>
+                        <h1>R${(drink.price * drink.amount).toFixed(2)}</h1>
                     </ItemsInfo>
                 ))}
                 {orderedDesserts.map((dessert, index) => (
                     <ItemsInfo key={index}>
                         <h1>{dessert.name} (x{dessert.amount})</h1>
-                        <h1>R${dessert.price * dessert.amount}</h1>
+                        <h1>R${(dessert.price * dessert.amount).toFixed(2)}</h1>
                     </ItemsInfo>
                 ))}
                 <Total>
                 <h1>TOTAL</h1>
+                <h1>R$ {total.toFixed(2)}</h1>
             </Total>
             </OrderInfo>
+            <Button onClick={() => finishOrder()}>Tudo certo, pode pedir!</Button>
         </OrderReviewBox>
     )
 }
@@ -50,6 +67,24 @@ const OrderReviewBox = styled.div`
     height: calc(100% - 92px);
     margin-top: 92px;
     background-color: #E5E5E5;
+`;
+
+const Button = styled.button`
+    height: 52px;
+    width: calc(100vw - 80px);
+    margin: 30px auto 0 auto;
+    cursor: pointer;
+    background: #50D074;
+    :hover {
+        background: #91e2a8;
+    }
+    border: none;
+    border-radius: 100px;
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 26px;
+    color: #FFFFFF;
 `;
 
 const Title = styled.h1`

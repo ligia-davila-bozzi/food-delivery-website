@@ -32,7 +32,7 @@ export default function Shelf(props) {
                         <img alt="" src={i.img}></img>
                         <Name>{i.name}</Name>
                         <Info>{i.info}</Info>
-                        <Price>R${i.price.toFixed(2)}</Price>
+                        <Price>R$ {i.price.toFixed(2)}</Price>
                         {i.amount > 0 &&
                             <Counter>
                                 <button onClick={() => removeOne(index)}>-</button>
@@ -84,7 +84,7 @@ const Item = styled.div`
     height: 202px;
     background-color: #FFF;
     margin-right: 16px;
-    padding-top: 18px;
+    padding-top: 15px;
     border-radius: 9px;
     position: relative;
     box-shadow: ${props => props.selected ? "0px 0px 10px -4px rgba(0, 0, 0, 0.25), inset 0px 0px 0px 5px #32B72F" : "none"};
@@ -113,16 +113,16 @@ const Name = styled.div`
     font-size: 16px;
     line-height: 19px;
     color: #333;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
 `;
 
 const Info = styled.div`
     width: 144px;
     font-family: Roboto;
     font-size: 15px;
-    line-height: 18px;
+    line-height: 17px;
     color: #A6A6A6;
-    margin-bottom: 2px;
+    margin-bottom: 6px;
 `;
 
 const Price = styled.div`

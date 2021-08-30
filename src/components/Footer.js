@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import CartContext from '../contexts/CartContext';
 
 export default function Footer() {
-    const { meals, drinks, desserts } = useContext(CartContext);
+    const { meals, drinks, desserts, setOrderURL } = useContext(CartContext);
     const [finalMeals, setFinalMeals] = useState("");
     const [finalDrinks, setFinalDrinks] = useState("");
     const [finalDesserts, setFinalDesserts] = useState("");
@@ -36,18 +36,14 @@ export default function Footer() {
         setFinalDesserts(selectedDesserts);
         setFinalPrice(subtotal);
     }, [meals, drinks, desserts]);
-    
-    function orderProduct() {
-        history.push('/review-order');
-        const orderText = `Olá, gostaria de fazer o pedido:\n- Prato(s):${finalMeals}\n- Bebida(s):${finalDrinks}\n- Sobremesa(s):${finalDesserts}\nTotal: R$ ${finalPrice.toFixed(2)}`;
-        const orderURL = `https://wa.me/5522999790099?text=${encodeURIComponent(orderText)}`
-        openInNewTab(orderURL);
-    }
 
-    function openInNewTab(url) {
-        const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
-        if(newWindow) {newWindow.opener = null}
-    }
+    useEffect(() => {
+        const orderText = `Olá, gostaria de fazer o pedido:\n- Prato(s):${finalMeals}\n- Bebida(s):${finalDrinks}\n- Sobremesa(s):${finalDesserts}\nTotal: R$ ${finalPrice.toFixed(2)}`;
+        const encodedURL = `https://wa.me/5522999790099?text=${encodeURIComponent(orderText)}`;
+        setOrderURL(encodedURL);
+    }, [finalPrice]);
+    
+    function orderProduct() {history.push('/review-order')}
 
     return(
         <FooterBox>
