@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
 import CartContext from '../contexts/CartContext'
 
@@ -11,6 +12,8 @@ export default function OrderReview() {
     let orderedDrinks = [];
     let orderedDesserts = [];
     let total = 0;
+    const history = useHistory();
+
     meals.forEach(meal => {if (meal.amount > 0) {
         orderedMeals.push(meal);
         total += (meal.price * meal.amount);
@@ -23,11 +26,21 @@ export default function OrderReview() {
         orderedDesserts.push(dessert);
         total += (dessert.price * dessert.amount);
     }});
+
     function openInNewTab(url) {
         const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
         if(newWindow) {newWindow.opener = null}
     }
-    function finishOrder() {openInNewTab(orderURL)}
+
+    function finishOrder() {
+        openInNewTab(orderURL);
+        alert("Pedido realizado com sucesso!");
+        meals.forEach(meal => {meal.amount = 0});
+        drinks.forEach(drink => {drink.amount = 0});
+        desserts.forEach(dessert => {dessert.amount = 0});
+        history.push('/');
+    }
+
     return(
         <OrderReviewBox>
             <Title>Revise seu pedido</Title>
@@ -56,6 +69,7 @@ export default function OrderReview() {
             </Total>
             </OrderInfo>
             <Button onClick={() => finishOrder()}>Tudo certo, pode pedir!</Button>
+            <Link to='/' style={{ textDecoration: 'none' }}><h2>Cancelar</h2></Link>
         </OrderReviewBox>
     )
 }
@@ -67,12 +81,24 @@ const OrderReviewBox = styled.div`
     height: calc(100% - 92px);
     margin-top: 92px;
     background-color: #E5E5E5;
+    overflow: scroll;
+    > * {
+        h2 { 
+            color: #777777;
+            font-family: Roboto;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 23px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    }
 `;
 
 const Button = styled.button`
-    height: 52px;
+    min-height: 52px;
     width: calc(100vw - 80px);
-    margin: 30px auto 0 auto;
+    margin: 30px auto 30px auto;
     cursor: pointer;
     background: #50D074;
     :hover {
